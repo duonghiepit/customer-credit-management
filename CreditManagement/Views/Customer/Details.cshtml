@@ -1,0 +1,82 @@
+﻿@{
+    Layout = null;
+}
+
+@model CreditManagement.Models.CustomerDetailsViewModel
+
+<h1 class="mb-4 text-primary">Tổng hợp thông tin khách hàng</h1>
+
+<!-- Thông tin khách hàng -->
+<section class="mb-4">
+    <h3 class="text-secondary">Thông tin khách hàng</h3>
+    <p><strong>Tên:</strong> @Model.Customer.FullName</p>
+    <p><strong>Email:</strong> @Model.Customer.Email</p>
+    <p><strong>Số điện thoại:</strong> @Model.Customer.PhoneNumber</p>
+    <p><strong>Địa chỉ:</strong> @Model.Customer.Address</p>
+</section>
+
+<!-- Tài khoản của khách hàng -->
+<section class="mb-4">
+    <h3 class="text-secondary">Tài khoản của khách hàng</h3>
+    @if (Model.Accounts.Any())
+    {
+        @foreach (var account in Model.Accounts)
+        {
+            <div class="border rounded p-3 mb-3">
+                <p><strong>Số tài khoản:</strong> @account.AccountNumber</p>
+                <p><strong>Loại tài khoản:</strong> @account.AccountType</p>
+                <p><strong>Số dư:</strong> @account.Balance.ToString("C")</p>
+                <p><strong>Trạng thái:</strong> @account.Status</p>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="text-muted">Khách hàng này không có tài khoản.</p>
+    }
+</section>
+
+<!-- Điểm tín dụng -->
+<section class="mb-4">
+    <h3 class="text-secondary">Điểm tín dụng</h3>
+    @if (Model.CreditScores.Any())
+    {
+        @foreach (var creditScore in Model.CreditScores)
+        {
+            <div class="border rounded p-3 mb-3">
+                <p><strong>Điểm tín dụng:</strong> @creditScore.Score</p>
+                <p><strong>Yếu tố rủi ro:</strong> @creditScore.RiskFactor</p>
+                <p><strong>Ngày đánh giá:</strong> @creditScore.AssessmentDate.ToString("dd/MM/yyyy")</p>
+                <p><strong>Lịch sử tín dụng:</strong> @creditScore.CreditHistory</p>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="text-muted">Khách hàng này không có điểm tín dụng.</p>
+    }
+</section>
+
+<!-- Các khoản vay -->
+<section class="mb-4">
+    <h3 class="text-secondary">Các khoản vay của khách hàng</h3>
+    @if (Model.Loans.Any())
+    {
+        @foreach (var loan in Model.Loans)
+        {
+            <div class="border rounded p-3 mb-3">
+                <p><strong>Số khoản vay:</strong> @loan.LoanId</p>
+                <p><strong>Loại khoản vay:</strong> @loan.LoanType</p>
+                <p><strong>Số tiền vay:</strong> @loan.LoanAmount.ToString("C")</p>
+                <p><strong>Lãi suất:</strong> @loan.InterestRate.ToString("P")</p>
+                <p><strong>Trạng thái:</strong> @loan.Status</p>
+                <p><strong>Ngày bắt đầu:</strong> @loan.StartDate.ToString("dd/MM/yyyy")</p>
+                <p><strong>Ngày kết thúc:</strong> @loan.EndDate.ToString("dd/MM/yyyy")</p>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="text-muted">Khách hàng này không có khoản vay.</p>
+    }
+</section>
